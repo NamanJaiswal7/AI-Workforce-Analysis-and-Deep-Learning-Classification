@@ -1,0 +1,80 @@
+@startuml fig_component_diagram
+skinparam defaultFontName Arial
+skinparam defaultFontSize 10
+skinparam backgroundColor #FFFFFF
+skinparam ArrowColor #2C3E50
+skinparam ArrowThickness 1.2
+skinparam RoundCorner 8
+skinparam shadowing false
+skinparam linetype ortho
+
+skinparam package {
+    BackgroundColor #EBF5FB
+    BorderColor #2980B9
+    FontColor #1A3A5C
+    FontStyle bold
+}
+
+skinparam component {
+    BackgroundColor #85C1E9
+    BorderColor #2471A3
+    FontColor #1A3A5C
+}
+
+skinparam database {
+    BackgroundColor #A9DFBF
+    BorderColor #117A65
+}
+
+title <b>Component Diagram (C4 Level 3)</b>\nWorkforce Data Processing Tool
+
+package "Streamlit Web Dashboard  [Container]" as dashPkg {
+    [Dashboard\nController] as dashCtrl
+    [Prediction\nViewer] as predView
+    [Attention\nVisualizer] as attnViz
+    [Human Review\nPanel] as reviewPanel
+    [Report\nExporter] as reportExp
+    [Metrics\nDashboard] as metricsDash
+
+    dashCtrl --> predView
+    dashCtrl --> attnViz
+    dashCtrl --> reviewPanel
+    dashCtrl --> reportExp
+    dashCtrl --> metricsDash
+}
+
+package "ML Pipeline Service  [Container]" as mlPkg {
+    [Data\nAcquisition] as dataAcq
+    [Text\nPreprocessing] as textPrep
+    [SentencePiece\nTokenizer] as tokenizer
+    [Bilingual\nGlossary] as glossary
+    [Label\nAssignment] as labelMod
+    [Model\nTrainer] as trainer
+    [Inference\nEngine] as inferenceEng
+    [Evaluation\nModule] as evaluator
+    [Common\nUtilities] as common
+
+    dataAcq --> textPrep
+    textPrep --> tokenizer
+    textPrep --> glossary
+    trainer --> inferenceEng
+    inferenceEng --> tokenizer
+    trainer --> common
+    inferenceEng --> common
+    evaluator --> common
+    labelMod --> textPrep
+}
+
+database "SQLite DB" as db
+database "File Storage" as fileStore
+
+dashCtrl --> inferenceEng : "Classification\nrequest"
+metricsDash --> evaluator : "Metrics\nrequest"
+reviewPanel --> db : "Review\ndecisions"
+reportExp --> db : "Validated\nmappings"
+labelMod --> db : "Label\nstoring"
+trainer --> fileStore : "Model\ncheckpoints"
+dataAcq --> fileStore : "Raw\ndatasets"
+
+footer Figure 3.3.3. Component Diagram (C4 Level 3).\nShows internal modules within the Dashboard and ML Pipeline containers. (Created by the author)
+@enduml

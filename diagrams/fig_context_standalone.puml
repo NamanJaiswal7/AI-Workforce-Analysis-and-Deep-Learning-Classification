@@ -1,0 +1,66 @@
+@startuml fig_context_diagram
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam backgroundColor #FFFFFF
+skinparam ArrowColor #2C3E50
+skinparam ArrowThickness 1.5
+skinparam RoundCorner 8
+skinparam shadowing false
+
+skinparam rectangle {
+    BackgroundColor #EBF5FB
+    BorderColor #2980B9
+    BorderThickness 2
+    FontColor #1A3A5C
+    FontStyle bold
+}
+
+skinparam actor {
+    BackgroundColor #D6EAF8
+    BorderColor #2980B9
+    FontColor #1A3A5C
+}
+
+skinparam database {
+    BackgroundColor #D5F5E3
+    BorderColor #27AE60
+}
+
+skinparam cloud {
+    BackgroundColor #FDEBD0
+    BorderColor #E67E22
+}
+
+title <b>System Context Diagram (C4 Level 1)</b>\nWorkforce Data Processing Tool
+
+' === USER ACTORS ===
+actor "Public Sector\nAnalyst" as analyst #D6EAF8
+actor "Domain\nExpert" as expert #D6EAF8
+actor "System\nAdministrator" as admin #D6EAF8
+
+' === MAIN SYSTEM ===
+rectangle "<<System>>\n**Workforce Analysis Tool**\n\nAI-powered tool that maps Lithuanian\nstudy program descriptions to\nISCO-08 profession codes\nusing XLM-RoBERTa deep learning." as wfTool #2980B9
+
+' === EXTERNAL SYSTEMS ===
+cloud "<<External System>>\n**Lithuanian Open Data Portal**\n(data.gov.lt)\nStudy program registry\n(JSON / CSV)" as dataPortal #EAECEE
+cloud "<<External System>>\n**ILO ISCO-08 Database**\nStandardized occupation\ntaxonomy — 436 unit groups\n(XML / CSV)" as ilo #EAECEE
+cloud "<<External System>>\n**HuggingFace Model Hub**\nPre-trained XLM-RoBERTa-base\nmodel weights (270M params)\n(HTTPS)" as hfHub #EAECEE
+
+' === RELATIONSHIPS ===
+analyst --> wfTool : "Submits programs,\nreviews predictions\n[HTTPS / Browser]"
+expert --> wfTool : "Validates annotations,\nreviews metrics\n[HTTPS / Browser]"
+admin --> wfTool : "Configures system,\ndeploys models\n[SSH / CLI]"
+
+wfTool --> dataPortal : "Fetches study programs\n[REST API]"
+wfTool --> ilo : "Downloads taxonomy\n[HTTP / XML]"
+wfTool --> hfHub : "Downloads model weights\n[HTTPS]"
+
+legend right
+|= Shape |= Meaning |
+| Blue rectangle | Internal System |
+| Gray cloud | External System |
+| Blue actor | Person / User Role |
+endlegend
+
+footer Figure 3.3.1. System Context Diagram (C4 Level 1).\nShows the Workforce Analysis Tool interactions with user roles and external systems. (Created by the author)
+@enduml

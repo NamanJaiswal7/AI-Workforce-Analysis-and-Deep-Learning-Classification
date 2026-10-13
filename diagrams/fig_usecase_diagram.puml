@@ -1,0 +1,100 @@
+@startuml UseCaseDiagram
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+skinparam nodesep 60
+skinparam ranksep 80
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+
+skinparam usecase {
+    BackgroundColor #D6EAF8
+    BorderColor #5B9BD5
+    ArrowColor #2C3E50
+    FontSize 14
+}
+skinparam rectangle {
+    BackgroundColor #F5F8FC
+    BorderColor #7F8C8D
+}
+
+title UML Use Case Diagram\nWorkforce Data Processing Tool
+
+actor "Public Sector\nAnalyst" as analyst
+actor "Domain\nExpert" as expert
+actor "System\nAdministrator" as admin
+
+rectangle "<<Subsystem>>\nWorkforce Data Processing Tool" {
+
+    rectangle "Data Management" {
+        usecase "Fetch Study\nProgram Data" as UC1
+        usecase "Fetch ISCO-08\nTaxonomy" as UC2
+        usecase "Clean &\nPreprocess Data" as UC3
+        usecase "Manage Bilingual\nGlossary" as UC4
+    }
+
+    rectangle "Classification & Prediction" {
+        usecase "Submit Study\nProgram" as UC5
+        usecase "View Ranked\nISCO Predictions" as UC6
+        usecase "View Attention\nVisualization" as UC7
+        usecase "Batch Process\nPrograms" as UC8
+    }
+
+    rectangle "Human Review (HITL)" {
+        usecase "Accept / Reject\nMapping" as UC9
+        usecase "Override with\nManual ISCO Code" as UC10
+        usecase "Log Feedback\nfor Retraining" as UC11
+    }
+
+    rectangle "Model Training & Evaluation" {
+        usecase "Train & Fine-tune\nXLM-RoBERTa" as UC12
+        usecase "Deploy Trained\nModel" as UC13
+        usecase "View Evaluation\nMetrics" as UC14
+        usecase "Export Final\nReport (CSV/PDF)" as UC15
+    }
+}
+
+' External systems
+actor "Lithuanian Open\nData Portal" as dataPortal <<External System>>
+actor "ILO ISCO-08\nDatabase" as iloDb <<External System>>
+actor "HuggingFace\nModel Hub" as hfHub <<External System>>
+
+' === Analyst relationships ===
+analyst --> UC5
+analyst --> UC6
+analyst --> UC8
+analyst --> UC9
+analyst --> UC10
+analyst --> UC15
+
+' === Expert relationships ===
+expert --> UC9
+expert --> UC14
+expert --> UC15
+
+' === Admin relationships ===
+admin --> UC1
+admin --> UC2
+admin --> UC3
+admin --> UC4
+admin --> UC12
+admin --> UC13
+
+' === Include relationships ===
+UC5 ..> UC6 : <<include>>
+UC8 ..> UC5 : <<include>>
+
+' === Extend relationships ===
+UC6 ..> UC7 : <<extend>>
+UC9 ..> UC11 : <<extend>>
+UC10 ..> UC11 : <<extend>>
+
+' === External system relationships ===
+UC1 --> dataPortal : <<uses>>
+UC2 --> iloDb : <<uses>>
+UC12 --> hfHub : <<uses>>
+
+footer Figure 3.3.4. UML Use Case Diagram of the Workforce Data Processing Tool.\nShows 3 actors, 15 use cases across 4 packages. (Created by the author)
+@enduml

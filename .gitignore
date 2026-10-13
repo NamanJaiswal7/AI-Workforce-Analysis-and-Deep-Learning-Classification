@@ -1,0 +1,16 @@
+# Python environments and generated files
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local environment and editor files
+.env
+.DS_Store
+.idea/
+.vscode/
+
+# Model and training artifacts
+*.pt
+*.pth
+*.ckpt

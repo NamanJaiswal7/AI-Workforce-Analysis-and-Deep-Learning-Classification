@@ -1,0 +1,61 @@
+@startuml ComponentDiagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+skinparam defaultFontSize 14
+skinparam nodesep 80
+skinparam ranksep 90
+
+title Component Diagram\nWorkforce Data Processing Tool
+
+Container_Boundary(dashboardBoundary, "Streamlit Web Dashboard [Container]") {
+    Component(dashMain, "Dashboard Controller", "Streamlit Pages", "Main application entry point,\npage routing and session\nstate management.")
+    Component(predView, "Prediction Viewer", "Streamlit Component", "Displays ranked ISCO-08\npredictions with confidence\nscores and color coding.")
+    Component(attnViz, "Attention Visualizer", "Streamlit / Matplotlib", "Renders multi-head attention\nweight heatmaps highlighting\nkey input tokens.")
+    Component(reviewUI, "Human Review Panel", "Streamlit Component", "Accept/Reject/Override\ninterface for each predicted\nmapping with comments.")
+    Component(reportExport, "Report Exporter", "Streamlit / Pandas", "Generates downloadable CSV\nand PDF reports of validated\nmappings and statistics.")
+    Component(metricsView, "Metrics Dashboard", "Streamlit / Plotly", "Displays F1-score, precision,\nrecall, top-k accuracy,\nand confusion matrices.")
+}
+
+Container_Boundary(mlBoundary, "ML Pipeline Service [Container]") {
+    Component(dataAcq, "Data Acquisition\nModule", "Python / Requests", "Fetches study program data\nfrom data.gov.lt REST API\nand ISCO-08 from ILO.")
+    Component(textPrep, "Text Preprocessing\nModule", "Python / Regex", "Cleans HTML, normalizes\nUnicode, preserves Lithuanian\ndiacritics, lowercases text.")
+    Component(tokenizer, "SentencePiece\nTokenizer", "HuggingFace Tokenizers", "Subword tokenization via\nBPE for cross-lingual\nmorphological handling.")
+    Component(glossary, "Bilingual Glossary\nManager", "Python / JSON", "Manages ~200 domain-specific\nLT-EN term mappings for\ndata augmentation.")
+    Component(labelAssign, "Label Assignment\nModule", "Python / scikit-learn", "Semi-automatic ISCO code\nassignment via keyword\nmatching + TF-IDF similarity.")
+    Component(trainer, "Model Trainer", "PyTorch / HuggingFace", "Fine-tunes XLM-RoBERTa with\nBCEWithLogitsLoss, AdamW,\nclass-weighted sampling.")
+    Component(inference, "Inference Engine", "PyTorch", "Runs forward pass, applies\nsigmoid, returns ranked\nISCO predictions with scores.")
+    Component(evaluator, "Evaluation Module", "scikit-learn / NumPy", "Computes macro F1, precision,\nrecall, top-k accuracy,\nand Cohen's Kappa.")
+    Component(common, "Common Utilities", "Python Shared Library", "Logging, configuration,\ndata validation, and\nshared helper functions.")
+}
+
+ContainerDb(db, "SQLite Database\n[Container]", "")
+ContainerDb(fs, "File Storage\n[Container]", "")
+
+Rel(dashMain, predView, "Routes to")
+Rel(dashMain, attnViz, "Routes to")
+Rel(dashMain, reviewUI, "Routes to")
+Rel(dashMain, reportExport, "Routes to")
+Rel(dashMain, metricsView, "Routes to")
+
+Rel(dashMain, inference, "Sends classification\nrequest", "Python API")
+Rel(reviewUI, db, "Stores review\ndecisions", "SQL")
+Rel(reportExport, db, "Reads validated\nmappings", "SQL")
+Rel(metricsView, evaluator, "Requests\nevaluation metrics", "Python API")
+
+Rel(dataAcq, textPrep, "Sends raw text")
+Rel(textPrep, tokenizer, "Sends cleaned text")
+Rel(textPrep, glossary, "Enriches with\nbilingual terms")
+Rel(labelAssign, db, "Reads/Writes\nlabels", "SQL")
+Rel(trainer, inference, "Deploys trained\nmodel")
+Rel(trainer, fs, "Saves checkpoints", "File I/O")
+Rel(dataAcq, fs, "Stores raw\ndatasets", "File I/O")
+Rel(inference, tokenizer, "Tokenizes\ninput pairs")
+
+Rel(trainer, common, "Uses")
+Rel(inference, common, "Uses")
+Rel(evaluator, common, "Uses")
+
+SHOW_LEGEND()
+
+footer Figure 3.x.3. Component Diagram — C4 Model Level 3.\nShows the internal components of the Streamlit Dashboard and ML Pipeline containers. (Created by the author)
+@enduml

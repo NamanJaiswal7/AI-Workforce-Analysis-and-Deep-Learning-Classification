@@ -1,0 +1,62 @@
+@startuml ActivityDiagram
+|Public Sector Analyst|
+|Domain Expert|
+|System|
+
+title Activity Diagram — Classification and Human Review Workflow\nWorkforce Data Processing Tool
+
+skinparam defaultFontSize 14
+skinparam nodesep 50
+skinparam ranksep 50
+
+|System|
+start
+:Fetch Dataset (Study Programs & ISCO Taxonomy);
+:Preprocess Text & Tokenize\n(Including Bilingual Glossary Enrichment);
+
+|Domain Expert|
+:Run Initial Label Matching;
+:Verify & Correct Ground-Truth Labels;
+
+|System|
+:Train & Fine-tune XLM-RoBERTa\n(Stratified Sampling, Early Stopping);
+:Deploy Best Model to Inference Pipeline;
+
+|Public Sector Analyst|
+:Submit Study Program via Dashboard;
+
+|System|
+:Run Inference (Forward Pass & Ranking);
+:Return Top-k Predictions & Attention Visualization;
+
+|Public Sector Analyst|
+repeat
+    if (Prediction Correct?) then (yes)
+        :Accept Mapping;
+    else (no)
+        :Override/Reject Mapping;
+    endif
+repeat while (More Predictions to Review?) is (yes)
+-> no;
+
+|System|
+:Store Review Decisions & Log Feedback;
+:Compute Evaluation Metrics (F1, Precision, Recall);
+
+|Domain Expert|
+:Review Model Performance;
+if (Acceptable?) then (yes)
+    :Approve for Production;
+else (no)
+    :Request Retraining;
+endif
+
+|Public Sector Analyst|
+:Export Final Report (CSV/PDF);
+
+|System|
+:Generate Validated Mapping Report;
+stop
+
+footer Figure 3.x.5. Activity Diagram (Swimlane) — Classification and Human Review Workflow.\nShows the simplified end-to-end process. (Created by the author)
+@enduml

@@ -1,0 +1,124 @@
+<mxfile host="65bd71144e">
+    <diagram id="container-diagram" name="Container Diagram">
+        <mxGraphModel dx="916" dy="1653" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1400" math="0" shadow="0">
+            <root>
+                <mxCell id="0" />
+                <mxCell id="1" parent="0" />
+                <mxCell id="title" value="&lt;b&gt;Container Diagram&lt;/b&gt;&lt;br&gt;Workforce Data Processing Tool" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=20;" parent="1" vertex="1">
+                    <mxGeometry x="832.0" y="19.5" width="416.0" height="65.0" as="geometry" />
+                </mxCell>
+                <mxCell id="analyst" value="" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;fillColor=#1B3A5C;strokeColor=#15294B;" parent="1" vertex="1">
+                    <mxGeometry x="52.0" y="260.0" width="182.0" height="130.0" as="geometry" />
+                </mxCell>
+                <mxCell id="analyst_label" value="&lt;b&gt;Public Sector&lt;br&gt;Analyst&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;&lt;font style=&quot;font-size:11px;&quot;&gt;Reviews predictions,&lt;br&gt;validates mappings.&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=top;resizable=0;points=[];strokeColor=none;fillColor=none;fontSize=13;fontColor=#1B3A5C;" parent="1" vertex="1">
+                    <mxGeometry x="26.0" y="403.0" width="234.0" height="91.0" as="geometry" />
+                </mxCell>
+                <mxCell id="expert" value="" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;fillColor=#1B3A5C;strokeColor=#15294B;" parent="1" vertex="1">
+                    <mxGeometry x="52.0" y="650.0" width="182.0" height="130.0" as="geometry" />
+                </mxCell>
+                <mxCell id="expert_label" value="&lt;b&gt;Domain Expert&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;&lt;font style=&quot;font-size:11px;&quot;&gt;Validates annotations,&lt;br&gt;reviews metrics.&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=top;resizable=0;points=[];strokeColor=none;fillColor=none;fontSize=13;fontColor=#1B3A5C;" parent="1" vertex="1">
+                    <mxGeometry x="26.0" y="793.0" width="234.0" height="78.0" as="geometry" />
+                </mxCell>
+                <mxCell id="boundary" value="Workforce Analysis Tool [Software System]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#2980B9;strokeWidth=2;dashed=1;dashPattern=5 5;verticalAlign=top;align=left;fontSize=16;fontStyle=1;fontColor=#2980B9;spacingTop=5;spacingLeft=10;arcSize=5;" parent="1" vertex="1">
+                    <mxGeometry x="364.0" y="104.0" width="1196.0" height="1118.0" as="geometry" />
+                </mxCell>
+                <mxCell id="dashboard" value="&lt;b&gt;Streamlit Web Dashboard&lt;/b&gt;&lt;br&gt;[Container: Python / Streamlit]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;Interactive UI for submitting&lt;br&gt;study programs, viewing predicted&lt;br&gt;ISCO mappings, attention&lt;br&gt;visualizations, human review,&lt;br&gt;and exporting reports.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2980B9;strokeColor=#1A5276;fontColor=#FFFFFF;arcSize=8;align=center;verticalAlign=middle;fontSize=14;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="455.0" y="182.0" width="364.0" height="221.0" as="geometry" />
+                </mxCell>
+                <mxCell id="mlPipeline" value="&lt;b&gt;ML Pipeline Service&lt;/b&gt;&lt;br&gt;[Container: Python / PyTorch]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;Orchestrates data preprocessing,&lt;br&gt;SentencePiece tokenization, model&lt;br&gt;fine-tuning, inference, and&lt;br&gt;evaluation workflow.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2980B9;strokeColor=#1A5276;fontColor=#FFFFFF;arcSize=8;align=center;verticalAlign=middle;fontSize=14;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="455.0" y="533.0" width="364.0" height="221.0" as="geometry" />
+                </mxCell>
+                <mxCell id="model" value="&lt;b&gt;XLM-RoBERTa Model&lt;/b&gt;&lt;br&gt;[Container: PyTorch / HuggingFace]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;Fine-tuned 12-layer Transformer&lt;br&gt;encoder (270M params) for&lt;br&gt;cross-lingual multi-label&lt;br&gt;classification of study programs&lt;br&gt;to ISCO-08 codes.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2980B9;strokeColor=#1A5276;fontColor=#FFFFFF;arcSize=8;align=center;verticalAlign=middle;fontSize=14;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="455.0" y="910.0" width="364.0" height="221.0" as="geometry" />
+                </mxCell>
+                <mxCell id="database" value="&lt;b&gt;SQLite Database&lt;/b&gt;&lt;br&gt;[Container: SQLite 3]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;Study program records,&lt;br&gt;ISCO-08 taxonomy,&lt;br&gt;predicted mappings,&lt;br&gt;human review decisions,&lt;br&gt;and audit logs.&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#2980B9;strokeColor=#1A5276;fontColor=#FFFFFF;boundedLbl=1;backgroundOutline=1;size=12;align=center;verticalAlign=middle;fontSize=14;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1014.0" y="403.0" width="286.0" height="234.0" as="geometry" />
+                </mxCell>
+                <mxCell id="fileStore" value="&lt;b&gt;File Storage&lt;/b&gt;&lt;br&gt;[Container: Local Filesystem]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;Raw CSV/JSON datasets,&lt;br&gt;model checkpoints (.pt),&lt;br&gt;tokenizer cache, bilingual&lt;br&gt;glossary, exported reports.&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#2980B9;strokeColor=#1A5276;fontColor=#FFFFFF;boundedLbl=1;backgroundOutline=1;size=12;align=center;verticalAlign=middle;fontSize=14;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="1014.0" y="780.0" width="286.0" height="234.0" as="geometry" />
+                </mxCell>
+                <mxCell id="extPortal" value="&lt;b&gt;Lithuanian Open&lt;br&gt;Data Portal&lt;/b&gt;&lt;br&gt;[External System]&lt;br&gt;&lt;font style=&quot;font-size:11px;&quot;&gt;Study program registry&lt;br&gt;(JSON / CSV).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8C8C;strokeColor=#666666;fontColor=#FFFFFF;arcSize=8;align=center;verticalAlign=middle;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="1742.0" y="182.0" width="234.0" height="156.0" as="geometry" />
+                </mxCell>
+                <mxCell id="extILO" value="&lt;b&gt;ILO ISCO-08&lt;br&gt;Database&lt;/b&gt;&lt;br&gt;[External System]&lt;br&gt;&lt;font style=&quot;font-size:11px;&quot;&gt;Occupation taxonomy&lt;br&gt;(XML / CSV).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8C8C;strokeColor=#666666;fontColor=#FFFFFF;arcSize=8;align=center;verticalAlign=middle;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="1742.0" y="494.0" width="234.0" height="156.0" as="geometry" />
+                </mxCell>
+                <mxCell id="extHF" value="&lt;b&gt;HuggingFace&lt;br&gt;Model Hub&lt;/b&gt;&lt;br&gt;[External System]&lt;br&gt;&lt;font style=&quot;font-size:11px;&quot;&gt;Pre-trained XLM-RoBERTa&lt;br&gt;base weights.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8C8C;strokeColor=#666666;fontColor=#FFFFFF;arcSize=8;align=center;verticalAlign=middle;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="1742.0" y="806.0" width="234.0" height="156.0" as="geometry" />
+                </mxCell>
+                <mxCell id="a1" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;entryX=0;entryY=0.3;strokeColor=#333333;fontSize=11;" parent="1" source="analyst" target="dashboard" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="a1l" value="Views predictions,&lt;br&gt;manages profile" style="edgeLabel;html=1;align=center;fontSize=10;fontColor=#333;" parent="a1" vertex="1" connectable="0">
+                    <mxGeometry x="-0.26" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a2" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;entryX=0;entryY=0.7;strokeColor=#333333;fontSize=11;" parent="1" source="expert" target="dashboard" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="a2l" value="Validates labels,&lt;br&gt;reviews evaluation" style="edgeLabel;html=1;align=center;fontSize=10;fontColor=#333;" parent="a2" vertex="1" connectable="0">
+                    <mxGeometry x="-0.26" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a3" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#2980B9;strokeWidth=2;fontSize=11;" parent="1" source="dashboard" target="mlPipeline" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="a3l" value="Sends classification&lt;br&gt;requests, receives&lt;br&gt;predictions [Python API]" style="edgeLabel;html=1;align=center;fontSize=10;fontColor=#2980B9;" parent="a3" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a4" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#2980B9;strokeWidth=2;fontSize=11;" parent="1" source="mlPipeline" target="model" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="a4l" value="Loads model,&lt;br&gt;runs inference,&lt;br&gt;fine-tunes [PyTorch]" style="edgeLabel;html=1;align=center;fontSize=10;fontColor=#2980B9;" parent="a4" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a5" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.3;entryX=0;entryY=0.5;strokeColor=#2980B9;strokeWidth=2;fontSize=11;" parent="1" source="mlPipeline" target="database" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="a5l" value="Reads/Writes [SQL]" style="edgeLabel;html=1;align=center;fontSize=10;fontColor=#2980B9;" parent="a5" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a6" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.7;entryX=0;entryY=0.5;strokeColor=#2980B9;strokeWidth=2;fontSize=11;" parent="1" source="mlPipeline" target="fileStore" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="a6l" value="Datasets, checkpoints&lt;br&gt;[File I/O]" style="edgeLabel;html=1;align=center;fontSize=10;fontColor=#2980B9;" parent="a6" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a7" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.15;entryX=0;entryY=0.5;strokeColor=#666666;dashed=1;fontSize=11;" parent="1" source="mlPipeline" target="extPortal" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="a7l" value="Fetches programs&lt;br&gt;[REST API]" style="edgeLabel;html=1;align=center;fontSize=10;fontColor=#666;" parent="a7" vertex="1" connectable="0">
+                    <mxGeometry x="0.26" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a8" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#666666;dashed=1;fontSize=11;" parent="1" source="mlPipeline" target="extILO" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="a8l" value="Downloads taxonomy&lt;br&gt;[HTTP]" style="edgeLabel;html=1;align=center;fontSize=10;fontColor=#666;" parent="a8" vertex="1" connectable="0">
+                    <mxGeometry x="0.26" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a9" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.85;entryX=0;entryY=0.5;strokeColor=#666666;dashed=1;fontSize=11;" parent="1" source="mlPipeline" target="extHF" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="a9l" value="Downloads weights&lt;br&gt;[HTTPS]" style="edgeLabel;html=1;align=center;fontSize=10;fontColor=#666;" parent="a9" vertex="1" connectable="0">
+                    <mxGeometry x="0.26" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

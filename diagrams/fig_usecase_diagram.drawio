@@ -1,0 +1,200 @@
+<mxfile host="65bd71144e">
+    <diagram id="usecase-diagram" name="UML Use Case Diagram">
+        <mxGraphModel dx="1587" dy="1179" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0" />
+                <mxCell id="1" parent="0" />
+                <mxCell id="title" value="&lt;b style=&quot;font-size:18px;&quot;&gt;UML Use Case Diagram&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:14px;&quot;&gt;Workforce Data Processing Tool&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="650.0" y="13.0" width="520.0" height="58.5" as="geometry" />
+                </mxCell>
+                <mxCell id="sysBoundary" value="&lt;font style=&quot;font-size:15px;&quot;&gt;&amp;lt;&amp;lt;Subsystem&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;Workforce Data Processing Tool&lt;/b&gt;&lt;/font&gt;" style="shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;fillColor=#F5F8FC;strokeColor=#5B9BD5;labelBackgroundColor=#F5F8FC;tabWidth=260;tabHeight=35;fontSize=14;verticalAlign=top;spacingTop=8;align=left;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="325.0" y="78.0" width="845.0" height="1248.0" as="geometry" />
+                </mxCell>
+                <mxCell id="actAnalyst" value="Public Sector&lt;br&gt;Analyst" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="117.0" y="364.0" width="46.800000000000004" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="actExpert" value="Domain&lt;br&gt;Expert" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="117.0" y="780.0" width="46.800000000000004" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="actAdmin" value="System&lt;br&gt;Administrator" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontStyle=1;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="117.0" y="1131.0" width="46.800000000000004" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="extPortal" value="&lt;b&gt;Lithuanian Open&lt;br&gt;Data Portal&lt;/b&gt;" style="shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;fillColor=#D5D8DC;strokeColor=#7F8C8D;labelBackgroundColor=#D5D8DC;tabWidth=120;tabHeight=18;fontSize=11;fontStyle=0;verticalAlign=middle;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1365.0" y="195.0" width="195.0" height="65.0" as="geometry" />
+                </mxCell>
+                <mxCell id="extILO" value="&lt;b&gt;ILO ISCO-08&lt;br&gt;Database&lt;/b&gt;" style="shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;fillColor=#D5D8DC;strokeColor=#7F8C8D;labelBackgroundColor=#D5D8DC;tabWidth=120;tabHeight=18;fontSize=11;fontStyle=0;verticalAlign=middle;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1339.0" y="367.25" width="195.0" height="65.0" as="geometry" />
+                </mxCell>
+                <mxCell id="extHF" value="&lt;b&gt;HuggingFace&lt;br&gt;Model Hub&lt;/b&gt;" style="shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;fillColor=#D5D8DC;strokeColor=#7F8C8D;labelBackgroundColor=#D5D8DC;tabWidth=120;tabHeight=18;fontSize=11;fontStyle=0;verticalAlign=middle;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="1300.0" y="1001.0" width="195.0" height="65.0" as="geometry" />
+                </mxCell>
+                <mxCell id="pkg1" value="&lt;b&gt;Data Management&lt;/b&gt;" style="shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;fillColor=none;strokeColor=#7F8C8D;labelBackgroundColor=#EAECEE;tabWidth=140;tabHeight=22;fontSize=13;verticalAlign=top;spacingTop=8;" parent="1" vertex="1">
+                    <mxGeometry x="377.0" y="143.0" width="624.0" height="260.0" as="geometry" />
+                </mxCell>
+                <mxCell id="uc1" value="Fetch Study&lt;br&gt;Program Data" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="416.0" y="208.0" width="182.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc2" value="Fetch ISCO-08&lt;br&gt;Taxonomy" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="650.0" y="208.0" width="182.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc3" value="Clean &amp;&lt;br&gt;Preprocess Data" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="416.0" y="312.0" width="182.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc4" value="Manage Bilingual&lt;br&gt;Glossary" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="650.0" y="312.0" width="182.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="pkg2" value="&lt;b&gt;Classification &amp; Prediction&lt;/b&gt;" style="shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;fillColor=none;strokeColor=#7F8C8D;labelBackgroundColor=#EAECEE;tabWidth=180;tabHeight=22;fontSize=13;verticalAlign=top;spacingTop=8;" parent="1" vertex="1">
+                    <mxGeometry x="377.0" y="442.0" width="624.0" height="260.0" as="geometry" />
+                </mxCell>
+                <mxCell id="uc5" value="Submit Study&lt;br&gt;Program" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="416.0" y="507.0" width="182.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc6" value="View Ranked&lt;br&gt;ISCO Predictions" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="650.0" y="507.0" width="195.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc7" value="View Attention&lt;br&gt;Visualization" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="650.0" y="611.0" width="195.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc8" value="Batch Process&lt;br&gt;Programs" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="416.0" y="611.0" width="182.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="pkg3" value="&lt;b&gt;Human Review (HITL)&lt;/b&gt;" style="shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;fillColor=none;strokeColor=#7F8C8D;labelBackgroundColor=#EAECEE;tabWidth=160;tabHeight=22;fontSize=13;verticalAlign=top;spacingTop=8;" parent="1" vertex="1">
+                    <mxGeometry x="377.0" y="741.0" width="624.0" height="260.0" as="geometry" />
+                </mxCell>
+                <mxCell id="uc9" value="Accept / Reject&lt;br&gt;Mapping" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D5F5E3;strokeColor=#27AE60;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="416.0" y="806.0" width="182.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc10" value="Override with&lt;br&gt;Manual ISCO Code" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FCF3CF;strokeColor=#F39C12;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="650.0" y="806.0" width="201.5" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc11" value="Log Feedback&lt;br&gt;for Retraining" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="520.0" y="910.0" width="195.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="pkg4" value="&lt;b&gt;Model Training &amp; Evaluation&lt;/b&gt;" style="shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;fillColor=none;strokeColor=#7F8C8D;labelBackgroundColor=#EAECEE;tabWidth=190;tabHeight=22;fontSize=13;verticalAlign=top;spacingTop=8;" parent="1" vertex="1">
+                    <mxGeometry x="377.0" y="1040.0" width="624.0" height="260.0" as="geometry" />
+                </mxCell>
+                <mxCell id="uc12" value="Train &amp; Fine-tune&lt;br&gt;XLM-RoBERTa" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="416.0" y="1105.0" width="195.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc13" value="Deploy Trained&lt;br&gt;Model" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="663.0" y="1105.0" width="182.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc14" value="View Evaluation&lt;br&gt;Metrics" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="416.0" y="1209.0" width="195.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="uc15" value="Export Final&lt;br&gt;Report (CSV/PDF)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D6EAF8;strokeColor=#5B9BD5;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="663.0" y="1209.0" width="195.0" height="71.5" as="geometry" />
+                </mxCell>
+                <mxCell id="r1" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAnalyst" target="uc5" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r2" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAnalyst" target="uc6" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r3" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAnalyst" target="uc8" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r4" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAnalyst" target="uc9" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r5" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAnalyst" target="uc10" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r6" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAnalyst" target="uc15" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r7" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actExpert" target="uc9" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r8" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actExpert" target="uc14" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r9" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actExpert" target="uc15" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r10" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAdmin" target="uc1" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r11" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAdmin" target="uc2" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r12" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAdmin" target="uc3" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r13" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAdmin" target="uc4" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r14" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAdmin" target="uc12" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="r15" style="endArrow=none;html=1;strokeColor=#333;" parent="1" source="actAdmin" target="uc13" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="inc1" style="endArrow=open;html=1;dashed=1;strokeColor=#5B9BD5;" parent="1" source="uc5" target="uc6" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="inc1l" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;fontSize=10;fontColor=#5B9BD5;fontStyle=2;" parent="inc1" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="inc2" style="endArrow=open;html=1;dashed=1;strokeColor=#5B9BD5;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" parent="1" source="uc8" target="uc5" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="inc2l" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeLabel;html=1;fontSize=10;fontColor=#5B9BD5;fontStyle=2;" parent="inc2" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ext1" style="endArrow=open;html=1;dashed=1;strokeColor=#27AE60;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" source="uc6" target="uc7" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="ext1l" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;fontSize=10;fontColor=#27AE60;fontStyle=2;" parent="ext1" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ext2" style="endArrow=open;html=1;dashed=1;strokeColor=#27AE60;exitX=0.5;exitY=1;entryX=0.2;entryY=0;" parent="1" source="uc9" target="uc11" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="ext2l" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;fontSize=10;fontColor=#27AE60;fontStyle=2;" parent="ext2" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ext3" style="endArrow=open;html=1;dashed=1;strokeColor=#27AE60;exitX=0.5;exitY=1;entryX=0.8;entryY=0;" parent="1" source="uc10" target="uc11" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="ext3l" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="edgeLabel;html=1;fontSize=10;fontColor=#27AE60;fontStyle=2;" parent="ext3" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="es1" style="endArrow=classic;html=1;strokeColor=#7F8C8D;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="uc1" target="extPortal" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="es1l" value="&amp;lt;&amp;lt;uses&amp;gt;&amp;gt;" style="edgeLabel;html=1;fontSize=10;fontColor=#7F8C8D;fontStyle=2;" parent="es1" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="es2" style="endArrow=classic;html=1;strokeColor=#7F8C8D;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="uc2" target="extILO" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="es2l" value="&amp;lt;&amp;lt;uses&amp;gt;&amp;gt;" style="edgeLabel;html=1;fontSize=10;fontColor=#7F8C8D;fontStyle=2;" parent="es2" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="es3" style="endArrow=classic;html=1;strokeColor=#7F8C8D;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="uc12" target="extHF" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="es3l" value="&amp;lt;&amp;lt;uses&amp;gt;&amp;gt;" style="edgeLabel;html=1;fontSize=10;fontColor=#7F8C8D;fontStyle=2;" parent="es3" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

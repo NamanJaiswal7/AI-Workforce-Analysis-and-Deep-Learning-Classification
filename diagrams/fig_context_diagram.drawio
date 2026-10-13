@@ -1,0 +1,124 @@
+<mxfile host="65bd71144e">
+    <diagram id="context-diagram" name="System Context Diagram">
+        <mxGraphModel dx="801" dy="1446" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0" />
+                <mxCell id="1" parent="0" />
+                <mxCell id="title1" value="&lt;b&gt;System Context Diagram&lt;/b&gt;&lt;br&gt;Workforce Data Processing Tool" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=20;" parent="1" vertex="1">
+                    <mxGeometry x="728.0" y="26.0" width="416.0" height="65.0" as="geometry" />
+                </mxCell>
+                <mxCell id="person1" value="" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;image=;fontSize=15;fontColor=#FFFFFF;fillColor=#1B3A5C;strokeColor=#15294B;arcSize=50;" parent="1" vertex="1">
+                    <mxGeometry x="78.0" y="156.0" width="234.0" height="156.0" as="geometry" />
+                </mxCell>
+                <mxCell id="person1_label" value="&lt;b&gt;Public Sector Analyst&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;Reviews AI-predicted mappings,&lt;br&gt;accepts/rejects suggestions,&lt;br&gt;exports final reports.&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=top;resizable=0;points=[];autosize=0;strokeColor=none;fillColor=none;fontSize=14;fontColor=#1B3A5C;" parent="1" vertex="1">
+                    <mxGeometry x="52.0" y="325.0" width="286.0" height="117.0" as="geometry" />
+                </mxCell>
+                <mxCell id="person2" value="" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;image=;fontSize=15;fontColor=#FFFFFF;fillColor=#1B3A5C;strokeColor=#15294B;arcSize=50;" parent="1" vertex="1">
+                    <mxGeometry x="78.0" y="546.0" width="234.0" height="156.0" as="geometry" />
+                </mxCell>
+                <mxCell id="person2_label" value="&lt;b&gt;Domain Expert&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;Validates ground-truth annotations,&lt;br&gt;reviews model performance,&lt;br&gt;approves labeled datasets.&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=top;resizable=0;points=[];autosize=0;strokeColor=none;fillColor=none;fontSize=14;fontColor=#1B3A5C;" parent="1" vertex="1">
+                    <mxGeometry x="52.0" y="715.0" width="286.0" height="117.0" as="geometry" />
+                </mxCell>
+                <mxCell id="person3" value="" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;image=;fontSize=15;fontColor=#FFFFFF;fillColor=#1B3A5C;strokeColor=#15294B;arcSize=50;" parent="1" vertex="1">
+                    <mxGeometry x="78.0" y="936.0" width="234.0" height="156.0" as="geometry" />
+                </mxCell>
+                <mxCell id="person3_label" value="&lt;b&gt;System Administrator&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;Deploys model updates,&lt;br&gt;manages configurations,&lt;br&gt;monitors system health.&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=top;resizable=0;points=[];autosize=0;strokeColor=none;fillColor=none;fontSize=14;fontColor=#1B3A5C;" parent="1" vertex="1">
+                    <mxGeometry x="52.0" y="1105.0" width="286.0" height="117.0" as="geometry" />
+                </mxCell>
+                <mxCell id="system1" value="&lt;b&gt;Workforce Analysis Tool&lt;/b&gt;&lt;br&gt;[Software System]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:14px;&quot;&gt;AI-powered tool that maps Lithuanian&lt;br&gt;higher education study program&lt;br&gt;descriptions to ISCO-08 profession&lt;br&gt;codes using XLM-RoBERTa&lt;br&gt;deep learning model.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2980B9;strokeColor=#1A5276;fontColor=#FFFFFF;arcSize=10;align=center;verticalAlign=middle;fontSize=15;shadow=1;" parent="1" vertex="1">
+                    <mxGeometry x="676.0" y="494.0" width="416.0" height="234.0" as="geometry" />
+                </mxCell>
+                <mxCell id="ext1" value="&lt;b&gt;Lithuanian Open Data Portal&lt;/b&gt;&lt;br&gt;[External System]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;data.gov.lt &#8212; Provides study&lt;br&gt;program registry: descriptions,&lt;br&gt;learning outcomes, qualifications.&lt;br&gt;Format: JSON / CSV.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8C8C;strokeColor=#666666;fontColor=#FFFFFF;arcSize=10;align=center;verticalAlign=middle;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="1378.0" y="130.0" width="338.0" height="195.0" as="geometry" />
+                </mxCell>
+                <mxCell id="ext2" value="&lt;b&gt;ILO ISCO-08 Database&lt;/b&gt;&lt;br&gt;[External System]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;International Labour Organization &#8212;&lt;br&gt;Standardized occupation taxonomy&lt;br&gt;with 436 unit groups and&lt;br&gt;task descriptions. Format: XML / CSV.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8C8C;strokeColor=#666666;fontColor=#FFFFFF;arcSize=10;align=center;verticalAlign=middle;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="1378.0" y="494.0" width="338.0" height="195.0" as="geometry" />
+                </mxCell>
+                <mxCell id="ext3" value="&lt;b&gt;HuggingFace Model Hub&lt;/b&gt;&lt;br&gt;[External System]&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size:13px;&quot;&gt;Hosts pre-trained XLM-RoBERTa-base&lt;br&gt;model weights (270M parameters,&lt;br&gt;100 languages including Lithuanian).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8C8C;strokeColor=#666666;fontColor=#FFFFFF;arcSize=10;align=center;verticalAlign=middle;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="1378.0" y="858.0" width="338.0" height="195.0" as="geometry" />
+                </mxCell>
+                <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=13;" parent="1" source="person1" target="system1" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="arrow1_label" value="Submits study programs,&lt;br&gt;reviews predictions" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#333333;" parent="arrow1" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=13;" parent="1" source="person2" target="system1" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="arrow2_label" value="Validates annotations,&lt;br&gt;reviews evaluation metrics" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#333333;" parent="arrow2" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=13;" parent="1" source="person3" target="system1" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="arrow3_label" value="Configures system,&lt;br&gt;deploys models" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#333333;" parent="arrow3" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=13;" parent="1" source="system1" target="ext1" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="arrow4_label" value="Fetches study program&lt;br&gt;records via REST API" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#333333;" parent="arrow4" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=13;" parent="1" source="system1" target="ext2" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="arrow5_label" value="Downloads ISCO-08&lt;br&gt;taxonomy via HTTP" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#333333;" parent="arrow5" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#333333;fontSize=13;" parent="1" source="system1" target="ext3" edge="1">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="arrow6_label" value="Downloads pre-trained&lt;br&gt;model weights via HTTPS" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#333333;" parent="arrow6" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legend_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8F9FA;strokeColor=#BDC3C7;arcSize=5;" parent="1" vertex="1">
+                    <mxGeometry x="455.0" y="1274.0" width="936.0" height="104.0" as="geometry" />
+                </mxCell>
+                <mxCell id="legend_title" value="&lt;b&gt;Legend&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="481.0" y="1280.5" width="78.0" height="39.0" as="geometry" />
+                </mxCell>
+                <mxCell id="legend_person" value="" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;container=0;fillColor=#1B3A5C;strokeColor=#15294B;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="494.0" y="1319.5" width="39.0" height="39.0" as="geometry" />
+                </mxCell>
+                <mxCell id="legend_person_t" value="System User&lt;br&gt;[Person]" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=0;strokeColor=none;fillColor=none;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="546.0" y="1319.5" width="117.0" height="39.0" as="geometry" />
+                </mxCell>
+                <mxCell id="legend_sys" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2980B9;strokeColor=#1A5276;arcSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="702.0" y="1319.5" width="39.0" height="39.0" as="geometry" />
+                </mxCell>
+                <mxCell id="legend_sys_t" value="System&lt;br&gt;[Software System]" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=0;strokeColor=none;fillColor=none;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="754.0" y="1319.5" width="143.0" height="39.0" as="geometry" />
+                </mxCell>
+                <mxCell id="legend_ext" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8C8C;strokeColor=#666666;arcSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="936.0" y="1319.5" width="39.0" height="39.0" as="geometry" />
+                </mxCell>
+                <mxCell id="legend_ext_t" value="External SaaS&lt;br&gt;[Software System]" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=0;strokeColor=none;fillColor=none;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="988.0" y="1319.5" width="143.0" height="39.0" as="geometry" />
+                </mxCell>
+                <mxCell id="legend_arrow" value="" style="endArrow=classic;html=1;strokeColor=#333333;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1170.0" y="1339.0" as="sourcePoint" />
+                        <mxPoint x="1248.0" y="1339.0" as="targetPoint" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legend_arrow_t" value="Information flow" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=0;strokeColor=none;fillColor=none;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1261.0" y="1319.5" width="117.0" height="39.0" as="geometry" />
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

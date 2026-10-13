@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  id="Definitions_ClassificationReview"
+                  targetNamespace="http://bpmn.io/schema/bpmn"
+                  exporter="Camunda Modeler"
+                  exporterVersion="5.0.0">
+
+  <bpmn:process id="Process_ClassificationReview" name="Classification and Human Review Subprocess" isExecutable="false">
+
+    <!-- ==================== MODEL INFERENCE ==================== -->
+
+    <bpmn:startEvent id="StartEvent_C" name="Study Program&#10;Description Received">
+      <bpmn:outgoing>Flow_C01</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:task id="Task_Tokenize" name="Tokenize Input with&#10;SentencePiece Tokenizer&#10;(max 256 tokens)">
+      <bpmn:incoming>Flow_C01</bpmn:incoming>
+      <bpmn:outgoing>Flow_C02</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_Encode" name="Encode through 12-Layer&#10;Transformer Encoder&#10;(XLM-RoBERTa)">
+      <bpmn:incoming>Flow_C02</bpmn:incoming>
+      <bpmn:outgoing>Flow_C03</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_CLSExtract" name="Extract [CLS] Token&#10;Representation&#10;(768-dim vector)">
+      <bpmn:incoming>Flow_C03</bpmn:incoming>
+      <bpmn:outgoing>Flow_C04</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_ClassifyHead" name="Apply Classification Head&#10;(768 → 256 → 43)&#10;with ReLU &amp; Dropout">
+      <bpmn:incoming>Flow_C04</bpmn:incoming>
+      <bpmn:outgoing>Flow_C05</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_Sigmoid" name="Apply Sigmoid Activation&#10;(Independent probability&#10;per ISCO code)">
+      <bpmn:incoming>Flow_C05</bpmn:incoming>
+      <bpmn:outgoing>Flow_C06</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:exclusiveGateway id="Gateway_Threshold" name="Any code&#10;above threshold?">
+      <bpmn:incoming>Flow_C06</bpmn:incoming>
+      <bpmn:outgoing>Flow_C07</bpmn:outgoing>
+      <bpmn:outgoing>Flow_C07b</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:task id="Task_RankCodes" name="Rank ISCO-08 Codes&#10;by Confidence Score&#10;(Descending)">
+      <bpmn:incoming>Flow_C07</bpmn:incoming>
+      <bpmn:outgoing>Flow_C08</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_FlagLowConf" name="Flag as Low Confidence&#10;(No code above threshold,&#10;return top-5 with warning)">
+      <bpmn:incoming>Flow_C07b</bpmn:incoming>
+      <bpmn:outgoing>Flow_C08b</bpmn:outgoing>
+    </bpmn:task>
+
+    <!-- ==================== DASHBOARD PRESENTATION ==================== -->
+
+    <bpmn:task id="Task_DisplayResults" name="Display Top-k Predictions&#10;with Confidence Bars&#10;in Streamlit Dashboard">
+      <bpmn:incoming>Flow_C08</bpmn:incoming>
+      <bpmn:incoming>Flow_C08b</bpmn:incoming>
+      <bpmn:outgoing>Flow_C09</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_AttentionViz" name="Generate Attention Weight&#10;Visualization&#10;(Explainable AI)">
+      <bpmn:incoming>Flow_C09</bpmn:incoming>
+      <bpmn:outgoing>Flow_C10</bpmn:outgoing>
+    </bpmn:task>
+
+    <!-- ==================== HUMAN REVIEW ==================== -->
+
+    <bpmn:userTask id="UserTask_AnalystReview" name="Analyst Reviews&#10;Predictions &amp;&#10;Attention Weights">
+      <bpmn:incoming>Flow_C10</bpmn:incoming>
+      <bpmn:outgoing>Flow_C11</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:exclusiveGateway id="Gateway_Decision" name="Analyst&#10;Decision">
+      <bpmn:incoming>Flow_C11</bpmn:incoming>
+      <bpmn:outgoing>Flow_Accept</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Modify</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Reject</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:task id="Task_AcceptMapping" name="Accept All&#10;Predicted Mappings">
+      <bpmn:incoming>Flow_Accept</bpmn:incoming>
+      <bpmn:outgoing>Flow_AcceptOut</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:userTask id="UserTask_ModifyMapping" name="Modify Mappings&#10;(Add / Remove&#10;ISCO Codes)">
+      <bpmn:incoming>Flow_Modify</bpmn:incoming>
+      <bpmn:outgoing>Flow_ModifyOut</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:task id="Task_RejectMapping" name="Reject Mappings&#10;&amp; Flag for&#10;Model Retraining">
+      <bpmn:incoming>Flow_Reject</bpmn:incoming>
+      <bpmn:outgoing>Flow_RejectOut</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:exclusiveGateway id="Gateway_Merge" name="">
+      <bpmn:incoming>Flow_AcceptOut</bpmn:incoming>
+      <bpmn:incoming>Flow_ModifyOut</bpmn:incoming>
+      <bpmn:incoming>Flow_RejectOut</bpmn:incoming>
+      <bpmn:outgoing>Flow_C12</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- ==================== AUDIT & COMPLETION ==================== -->
+
+    <bpmn:task id="Task_LogDecision" name="Log Decision&#10;(Accept / Modify / Reject)&#10;with Timestamp">
+      <bpmn:incoming>Flow_C12</bpmn:incoming>
+      <bpmn:outgoing>Flow_C13</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_AuditTrail" name="Store Audit Trail&#10;(EU AI Act&#10;Compliance Record)">
+      <bpmn:incoming>Flow_C13</bpmn:incoming>
+      <bpmn:outgoing>Flow_C14</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:endEvent id="EndEvent_C" name="Review&#10;Complete">
+      <bpmn:incoming>Flow_C14</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- ==================== TEXT ANNOTATIONS ==================== -->
+
+    <bpmn:textAnnotation id="TextAnnotation_Model">
+      <bpmn:text>MODEL INFERENCE
+(Automated - No Human Intervention)</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_Model" sourceRef="TextAnnotation_Model" targetRef="Task_Encode" />
+
+    <bpmn:textAnnotation id="TextAnnotation_XAI">
+      <bpmn:text>EXPLAINABLE AI (XAI)
+Highlights which words in the input
+influenced each ISCO prediction
+(EU AI Act - Article 14 Compliance)</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_XAI" sourceRef="TextAnnotation_XAI" targetRef="Task_AttentionViz" />
+
+    <bpmn:textAnnotation id="TextAnnotation_HITL">
+      <bpmn:text>HUMAN-IN-THE-LOOP (HITL)
+Human oversight required for
+High-Risk AI systems
+(EU AI Act - Article 14)</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_HITL" sourceRef="TextAnnotation_HITL" targetRef="UserTask_AnalystReview" />
+
+    <bpmn:textAnnotation id="TextAnnotation_Audit">
+      <bpmn:text>Audit trail records:
+- Input description
+- Model predictions &amp; scores
+- Analyst decision
+- Timestamp &amp; analyst ID</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_Audit" sourceRef="TextAnnotation_Audit" targetRef="Task_AuditTrail" />
+
+    <!-- ==================== SEQUENCE FLOWS ==================== -->
+
+    <bpmn:sequenceFlow id="Flow_C01" sourceRef="StartEvent_C" targetRef="Task_Tokenize" />
+    <bpmn:sequenceFlow id="Flow_C02" sourceRef="Task_Tokenize" targetRef="Task_Encode" />
+    <bpmn:sequenceFlow id="Flow_C03" sourceRef="Task_Encode" targetRef="Task_CLSExtract" />
+    <bpmn:sequenceFlow id="Flow_C04" sourceRef="Task_CLSExtract" targetRef="Task_ClassifyHead" />
+    <bpmn:sequenceFlow id="Flow_C05" sourceRef="Task_ClassifyHead" targetRef="Task_Sigmoid" />
+    <bpmn:sequenceFlow id="Flow_C06" sourceRef="Task_Sigmoid" targetRef="Gateway_Threshold" />
+    <bpmn:sequenceFlow id="Flow_C07" name="Yes" sourceRef="Gateway_Threshold" targetRef="Task_RankCodes" />
+    <bpmn:sequenceFlow id="Flow_C07b" name="No" sourceRef="Gateway_Threshold" targetRef="Task_FlagLowConf" />
+    <bpmn:sequenceFlow id="Flow_C08" sourceRef="Task_RankCodes" targetRef="Task_DisplayResults" />
+    <bpmn:sequenceFlow id="Flow_C08b" sourceRef="Task_FlagLowConf" targetRef="Task_DisplayResults" />
+    <bpmn:sequenceFlow id="Flow_C09" sourceRef="Task_DisplayResults" targetRef="Task_AttentionViz" />
+    <bpmn:sequenceFlow id="Flow_C10" sourceRef="Task_AttentionViz" targetRef="UserTask_AnalystReview" />
+    <bpmn:sequenceFlow id="Flow_C11" sourceRef="UserTask_AnalystReview" targetRef="Gateway_Decision" />
+    <bpmn:sequenceFlow id="Flow_Accept" name="Accept" sourceRef="Gateway_Decision" targetRef="Task_AcceptMapping" />
+    <bpmn:sequenceFlow id="Flow_Modify" name="Modify" sourceRef="Gateway_Decision" targetRef="UserTask_ModifyMapping" />
+    <bpmn:sequenceFlow id="Flow_Reject" name="Reject" sourceRef="Gateway_Decision" targetRef="Task_RejectMapping" />
+    <bpmn:sequenceFlow id="Flow_AcceptOut" sourceRef="Task_AcceptMapping" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="Flow_ModifyOut" sourceRef="UserTask_ModifyMapping" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="Flow_RejectOut" sourceRef="Task_RejectMapping" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="Flow_C12" sourceRef="Gateway_Merge" targetRef="Task_LogDecision" />
+    <bpmn:sequenceFlow id="Flow_C13" sourceRef="Task_LogDecision" targetRef="Task_AuditTrail" />
+    <bpmn:sequenceFlow id="Flow_C14" sourceRef="Task_AuditTrail" targetRef="EndEvent_C" />
+
+  </bpmn:process>
+
+  <!-- ==================== DIAGRAM ==================== -->
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_C">
+    <bpmndi:BPMNPlane id="BPMNPlane_C" bpmnElement="Process_ClassificationReview">
+
+      <!-- Row 1 (y ≈ 200): Model Inference Pipeline -->
+      <bpmndi:BPMNShape id="StartEvent_C_di" bpmnElement="StartEvent_C">
+        <dc:Bounds x="162" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="140" y="225" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_Tokenize_di" bpmnElement="Task_Tokenize">
+        <dc:Bounds x="260" y="160" width="190" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_Encode_di" bpmnElement="Task_Encode">
+        <dc:Bounds x="510" y="160" width="190" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_CLSExtract_di" bpmnElement="Task_CLSExtract">
+        <dc:Bounds x="760" y="160" width="190" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_ClassifyHead_di" bpmnElement="Task_ClassifyHead">
+        <dc:Bounds x="1010" y="160" width="190" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_Sigmoid_di" bpmnElement="Task_Sigmoid">
+        <dc:Bounds x="1260" y="160" width="190" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Gateway_Threshold_di" bpmnElement="Gateway_Threshold" isMarkerVisible="true">
+        <dc:Bounds x="1510" y="175" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1500" y="145" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_RankCodes_di" bpmnElement="Task_RankCodes">
+        <dc:Bounds x="1620" y="120" width="190" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_FlagLowConf_di" bpmnElement="Task_FlagLowConf">
+        <dc:Bounds x="1620" y="250" width="190" height="80" />
+      </bpmndi:BPMNShape>
+
+      <!-- Row 2 (y ≈ 430): Dashboard & Human Review -->
+      <bpmndi:BPMNShape id="Task_DisplayResults_di" bpmnElement="Task_DisplayResults">
+        <dc:Bounds x="260" y="400" width="200" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_AttentionViz_di" bpmnElement="Task_AttentionViz">
+        <dc:Bounds x="520" y="400" width="200" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="UserTask_AnalystReview_di" bpmnElement="UserTask_AnalystReview">
+        <dc:Bounds x="780" y="400" width="190" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Gateway_Decision_di" bpmnElement="Gateway_Decision" isMarkerVisible="true">
+        <dc:Bounds x="1030" y="415" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1030" y="472" width="50" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- Three decision branches -->
+      <bpmndi:BPMNShape id="Task_AcceptMapping_di" bpmnElement="Task_AcceptMapping">
+        <dc:Bounds x="1140" y="330" width="160" height="70" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="UserTask_ModifyMapping_di" bpmnElement="UserTask_ModifyMapping">
+        <dc:Bounds x="1140" y="410" width="160" height="70" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_RejectMapping_di" bpmnElement="Task_RejectMapping">
+        <dc:Bounds x="1140" y="490" width="160" height="70" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Gateway_Merge_di" bpmnElement="Gateway_Merge" isMarkerVisible="true">
+        <dc:Bounds x="1360" y="415" width="50" height="50" />
+      </bpmndi:BPMNShape>
+
+      <!-- Row 2 continued: Audit -->
+      <bpmndi:BPMNShape id="Task_LogDecision_di" bpmnElement="Task_LogDecision">
+        <dc:Bounds x="1470" y="400" width="180" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Task_AuditTrail_di" bpmnElement="Task_AuditTrail">
+        <dc:Bounds x="1710" y="400" width="170" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="EndEvent_C_di" bpmnElement="EndEvent_C">
+        <dc:Bounds x="1942" y="422" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1933" y="465" width="54" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+
+      <!-- Text Annotations -->
+      <bpmndi:BPMNShape id="TextAnnotation_Model_di" bpmnElement="TextAnnotation_Model">
+        <dc:Bounds x="520" y="80" width="230" height="40" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="TextAnnotation_XAI_di" bpmnElement="TextAnnotation_XAI">
+        <dc:Bounds x="490" y="510" width="250" height="70" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="TextAnnotation_HITL_di" bpmnElement="TextAnnotation_HITL">
+        <dc:Bounds x="780" y="510" width="220" height="70" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="TextAnnotation_Audit_di" bpmnElement="TextAnnotation_Audit">
+        <dc:Bounds x="1700" y="510" width="200" height="70" />
+      </bpmndi:BPMNShape>
+
+      <!-- Associations -->
+      <bpmndi:BPMNEdge id="Association_Model_di" bpmnElement="Association_Model">
+        <di:waypoint x="605" y="120" />
+        <di:waypoint x="605" y="160" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Association_XAI_di" bpmnElement="Association_XAI">
+        <di:waypoint x="620" y="510" />
+        <di:waypoint x="620" y="480" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Association_HITL_di" bpmnElement="Association_HITL">
+        <di:waypoint x="875" y="510" />
+        <di:waypoint x="875" y="480" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Association_Audit_di" bpmnElement="Association_Audit">
+        <di:waypoint x="1795" y="510" />
+        <di:waypoint x="1795" y="480" />
+      </bpmndi:BPMNEdge>
+
+      <!-- ==================== SEQUENCE FLOW EDGES ==================== -->
+
+      <!-- Row 1: Inference Pipeline -->
+      <bpmndi:BPMNEdge id="Flow_C01_di" bpmnElement="Flow_C01">
+        <di:waypoint x="198" y="200" />
+        <di:waypoint x="260" y="200" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_C02_di" bpmnElement="Flow_C02">
+        <di:waypoint x="450" y="200" />
+        <di:waypoint x="510" y="200" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_C03_di" bpmnElement="Flow_C03">
+        <di:waypoint x="700" y="200" />
+        <di:waypoint x="760" y="200" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_C04_di" bpmnElement="Flow_C04">
+        <di:waypoint x="950" y="200" />
+        <di:waypoint x="1010" y="200" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_C05_di" bpmnElement="Flow_C05">
+        <di:waypoint x="1200" y="200" />
+        <di:waypoint x="1260" y="200" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_C06_di" bpmnElement="Flow_C06">
+        <di:waypoint x="1450" y="200" />
+        <di:waypoint x="1510" y="200" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Gateway → Rank Codes (Yes, up) -->
+      <bpmndi:BPMNEdge id="Flow_C07_di" bpmnElement="Flow_C07">
+        <di:waypoint x="1560" y="200" />
+        <di:waypoint x="1590" y="200" />
+        <di:waypoint x="1590" y="160" />
+        <di:waypoint x="1620" y="160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1567" y="163" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+
+      <!-- Gateway → Flag Low Confidence (No, down) -->
+      <bpmndi:BPMNEdge id="Flow_C07b_di" bpmnElement="Flow_C07b">
+        <di:waypoint x="1535" y="225" />
+        <di:waypoint x="1535" y="290" />
+        <di:waypoint x="1620" y="290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1543" y="255" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+
+      <!-- Rank Codes → Display Results (down to row 2) -->
+      <bpmndi:BPMNEdge id="Flow_C08_di" bpmnElement="Flow_C08">
+        <di:waypoint x="1810" y="160" />
+        <di:waypoint x="1870" y="160" />
+        <di:waypoint x="1870" y="350" />
+        <di:waypoint x="360" y="350" />
+        <di:waypoint x="360" y="400" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Flag Low Conf → Display Results (down to row 2) -->
+      <bpmndi:BPMNEdge id="Flow_C08b_di" bpmnElement="Flow_C08b">
+        <di:waypoint x="1810" y="290" />
+        <di:waypoint x="1890" y="290" />
+        <di:waypoint x="1890" y="360" />
+        <di:waypoint x="400" y="360" />
+        <di:waypoint x="400" y="400" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Row 2: Dashboard & Review -->
+      <bpmndi:BPMNEdge id="Flow_C09_di" bpmnElement="Flow_C09">
+        <di:waypoint x="460" y="440" />
+        <di:waypoint x="520" y="440" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_C10_di" bpmnElement="Flow_C10">
+        <di:waypoint x="720" y="440" />
+        <di:waypoint x="780" y="440" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Flow_C11_di" bpmnElement="Flow_C11">
+        <di:waypoint x="970" y="440" />
+        <di:waypoint x="1030" y="440" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Decision Gateway → Accept (upper branch) -->
+      <bpmndi:BPMNEdge id="Flow_Accept_di" bpmnElement="Flow_Accept">
+        <di:waypoint x="1055" y="415" />
+        <di:waypoint x="1055" y="365" />
+        <di:waypoint x="1140" y="365" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1075" y="348" width="33" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+
+      <!-- Decision Gateway → Modify (middle branch) -->
+      <bpmndi:BPMNEdge id="Flow_Modify_di" bpmnElement="Flow_Modify">
+        <di:waypoint x="1080" y="440" />
+        <di:waypoint x="1140" y="445" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1090" y="427" width="33" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+
+      <!-- Decision Gateway → Reject (lower branch) -->
+      <bpmndi:BPMNEdge id="Flow_Reject_di" bpmnElement="Flow_Reject">
+        <di:waypoint x="1055" y="465" />
+        <di:waypoint x="1055" y="525" />
+        <di:waypoint x="1140" y="525" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1075" y="528" width="33" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+
+      <!-- Accept → Merge -->
+      <bpmndi:BPMNEdge id="Flow_AcceptOut_di" bpmnElement="Flow_AcceptOut">
+        <di:waypoint x="1300" y="365" />
+        <di:waypoint x="1385" y="365" />
+        <di:waypoint x="1385" y="415" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Modify → Merge -->
+      <bpmndi:BPMNEdge id="Flow_ModifyOut_di" bpmnElement="Flow_ModifyOut">
+        <di:waypoint x="1300" y="445" />
+        <di:waypoint x="1360" y="440" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Reject → Merge -->
+      <bpmndi:BPMNEdge id="Flow_RejectOut_di" bpmnElement="Flow_RejectOut">
+        <di:waypoint x="1300" y="525" />
+        <di:waypoint x="1385" y="525" />
+        <di:waypoint x="1385" y="465" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Merge → Log Decision -->
+      <bpmndi:BPMNEdge id="Flow_C12_di" bpmnElement="Flow_C12">
+        <di:waypoint x="1410" y="440" />
+        <di:waypoint x="1470" y="440" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Log → Audit Trail -->
+      <bpmndi:BPMNEdge id="Flow_C13_di" bpmnElement="Flow_C13">
+        <di:waypoint x="1650" y="440" />
+        <di:waypoint x="1710" y="440" />
+      </bpmndi:BPMNEdge>
+
+      <!-- Audit Trail → End -->
+      <bpmndi:BPMNEdge id="Flow_C14_di" bpmnElement="Flow_C14">
+        <di:waypoint x="1880" y="440" />
+        <di:waypoint x="1942" y="440" />
+      </bpmndi:BPMNEdge>
+
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</bpmn:definitions>

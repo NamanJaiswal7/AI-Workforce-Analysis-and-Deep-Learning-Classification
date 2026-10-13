@@ -1,0 +1,45 @@
+@startuml ContainerDiagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+skinparam defaultFontSize 14
+skinparam nodesep 80
+skinparam ranksep 90
+
+title Container Diagram\nWorkforce Data Processing Tool
+
+Person(analyst, "Public Sector Analyst", "Reviews predictions,\nvalidates mappings.")
+Person(expert, "Domain Expert", "Validates annotations,\nreviews metrics.")
+
+System_Boundary(wfSystem, "Workforce Analysis Tool [Software System]") {
+
+    Container(dashboard, "Streamlit Web Dashboard", "Container: Python / Streamlit", "Interactive UI for submitting\nstudy programs, viewing\npredicted ISCO mappings,\nattention visualizations,\nand exporting reports.")
+
+    Container(mlPipeline, "ML Pipeline Service", "Container: Python / PyTorch", "Orchestrates data preprocessing,\nmodel training, inference,\nevaluation, and manages\nthe classification workflow.")
+
+    Container(model, "XLM-RoBERTa Model", "Container: PyTorch / HuggingFace", "Fine-tuned 12-layer Transformer\nencoder (270M params) for\ncross-lingual multi-label\nclassification of study\nprograms to ISCO-08 codes.")
+
+    ContainerDb(database, "SQLite Database", "Container: SQLite 3", "Stores study program records,\nISCO-08 taxonomy, predicted\nmappings, human review\ndecisions, and audit logs.")
+
+    ContainerDb(fileStore, "File Storage", "Container: Local Filesystem", "Stores raw CSV/JSON datasets,\nmodel checkpoints (.pt),\ntokenizer cache, bilingual\nglossary, and exported reports.")
+}
+
+System_Ext(dataPortal, "Lithuanian Open\nData Portal", "Study program\nregistry (JSON/CSV).")
+System_Ext(ilo, "ILO ISCO-08\nDatabase", "Occupation taxonomy\n(XML/CSV).")
+System_Ext(hfHub, "HuggingFace\nModel Hub", "Pre-trained XLM-RoBERTa\nbase weights.")
+
+Rel(analyst, dashboard, "Submits programs,\nreviews predictions", "HTTPS / Browser")
+Rel(expert, dashboard, "Validates annotations,\nreviews evaluation", "HTTPS / Browser")
+
+Rel(dashboard, mlPipeline, "Sends classification\nrequests, receives\npredictions", "Python API / JSON")
+Rel(mlPipeline, model, "Loads model, runs\ninference, fine-tunes", "PyTorch API")
+Rel(mlPipeline, database, "Reads/Writes program\ndata, predictions,\nreview decisions", "SQL / SQLAlchemy")
+Rel(mlPipeline, fileStore, "Reads datasets,\nsaves model\ncheckpoints", "File I/O")
+
+Rel(mlPipeline, dataPortal, "Fetches study program\nrecords via", "REST API")
+Rel(mlPipeline, ilo, "Downloads ISCO-08\ntaxonomy via", "HTTP")
+Rel(mlPipeline, hfHub, "Downloads pre-trained\nmodel weights via", "HTTPS")
+
+SHOW_LEGEND()
+
+footer Figure 3.x.2. Container Diagram — C4 Model Level 2.\nShows the internal containers of the Workforce Analysis Tool. (Created by the author)
+@enduml

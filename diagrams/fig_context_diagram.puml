@@ -1,0 +1,34 @@
+@startuml SystemContextDiagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam defaultFontSize 15
+skinparam nodesep 80
+skinparam ranksep 90
+
+title System Context Diagram\nWorkforce Data Processing Tool
+
+Person(analyst, "Public Sector Analyst", "Reviews AI-predicted\nmappings, accepts/rejects\nsuggestions, exports reports.")
+Person(expert, "Domain Expert", "Validates ground-truth\nannotations, reviews model\nperformance metrics.")
+Person(admin, "System Administrator", "Deploys model updates,\nmanages configurations,\nmonitors system health.")
+
+System(wfTool, "Workforce Analysis Tool", "AI-powered tool that maps\nLithuanian study program\ndescriptions to ISCO-08\nprofession codes using\nXLM-RoBERTa deep learning.")
+
+System_Ext(dataPortal, "Lithuanian Open Data Portal\n(data.gov.lt)", "Provides study program\nregistry data: descriptions,\nlearning outcomes,\nqualifications (JSON/CSV).")
+System_Ext(ilo, "ILO ISCO-08 Database", "Provides standardized\noccupation taxonomy with\ntask descriptions for 436\nunit groups (XML/CSV).")
+System_Ext(hfHub, "HuggingFace Model Hub", "Hosts pre-trained\nXLM-RoBERTa-base model\nweights (270M parameters).")
+
+Rel(analyst, wfTool, "Submits study programs,\nreviews predictions", "HTTPS / Browser")
+Rel(expert, wfTool, "Validates annotations,\nreviews evaluation metrics", "HTTPS / Browser")
+Rel(admin, wfTool, "Configures system,\ndeploys models", "SSH / CLI")
+
+Rel(wfTool, dataPortal, "Fetches study program\nrecords via", "REST API / JSON")
+Rel(wfTool, ilo, "Downloads ISCO-08\ntaxonomy via", "HTTP / XML")
+Rel(wfTool, hfHub, "Downloads pre-trained\nmodel weights via", "HTTPS / PyTorch")
+
+Rel_L(dataPortal, wfTool, "")
+Rel_R(ilo, wfTool, "")
+
+SHOW_LEGEND()
+
+footer Figure 3.x.1. System Context Diagram — C4 Model Level 1.\nShows the Workforce Analysis Tool and its interactions with external users and systems. (Created by the author)
+@enduml

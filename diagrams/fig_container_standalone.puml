@@ -1,0 +1,58 @@
+@startuml fig_container_diagram
+skinparam defaultFontName Arial
+skinparam defaultFontSize 10
+skinparam backgroundColor #FFFFFF
+skinparam ArrowColor #2C3E50
+skinparam ArrowThickness 1.5
+skinparam RoundCorner 10
+skinparam shadowing false
+skinparam linetype ortho
+
+skinparam rectangle {
+    BackgroundColor #2980B9
+    BorderColor #1A5276
+    FontColor #FFFFFF
+    FontStyle bold
+    RoundCorner 10
+}
+
+title <b>Container Diagram (C4 Level 2)</b>\nWorkforce Data Processing Tool
+
+' === USERS ===
+actor "Public Sector\nAnalyst" as analyst
+actor "Domain\nExpert" as expert
+
+' === SYSTEM BOUNDARY ===
+rectangle "Workforce Analysis Tool  [Software System]" as boundary #EBF5FB {
+
+    rectangle "**Streamlit Web Dashboard**\n[Container: Python / Streamlit]\n\nInteractive UI for submitting programs,\nviewing predictions, attention visualization,\nhuman review and report export." as dashboard #2980B9
+
+    rectangle "**ML Pipeline Service**\n[Container: Python / PyTorch]\n\nOrchestrates data preprocessing,\nSentencePiece tokenization, model\nfine-tuning, inference, and evaluation." as mlPipeline #2980B9
+
+    rectangle "**XLM-RoBERTa Model**\n[Container: PyTorch / HuggingFace]\n\nFine-tuned 12-layer Transformer encoder\n(270M params) for cross-lingual\nmulti-label classification." as model #2980B9
+
+    database "**SQLite Database**\n[Container: SQLite 3]\n\nStudy programs, ISCO taxonomy,\npredictions, review decisions,\naudit logs." as db #117A65
+
+    database "**File Storage**\n[Container: Filesystem]\n\nDatasets (CSV/JSON), model\ncheckpoints (.pt), bilingual\nglossary, exported reports." as fileStore #117A65
+}
+
+' === EXTERNAL SYSTEMS ===
+cloud "**Lithuanian Open\nData Portal**\n[External System]\nStudy program registry" as extPortal #7F8C8D
+cloud "**ILO ISCO-08\nDatabase**\n[External System]\nOccupation taxonomy" as extILO #7F8C8D
+cloud "**HuggingFace\nModel Hub**\n[External System]\nPre-trained model weights" as extHF #7F8C8D
+
+' === ARROWS ===
+analyst --> dashboard : "Views predictions,\nmanages profile\n[HTTPS / Browser]"
+expert --> dashboard : "Validates labels,\nreviews evaluation\n[HTTPS / Browser]"
+
+dashboard --> mlPipeline : "Classification requests,\nreceives predictions\n[Python API]"
+mlPipeline --> model : "Loads model, runs\ninference, fine-tunes\n[PyTorch]"
+mlPipeline --> db : "Reads/Writes\n[SQLAlchemy / SQL]"
+mlPipeline --> fileStore : "Datasets, checkpoints\n[File I/O]"
+
+mlPipeline --> extPortal : "Fetches programs\n[REST API]"
+mlPipeline --> extILO : "Downloads taxonomy\n[HTTP]"
+mlPipeline --> extHF : "Downloads weights\n[HTTPS]"
+
+footer Figure 3.3.2. Container Diagram (C4 Level 2).\nShows the internal containers of the Workforce Analysis Tool. (Created by the author)
+@enduml
